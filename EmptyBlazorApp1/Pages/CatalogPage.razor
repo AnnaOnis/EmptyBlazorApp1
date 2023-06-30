@@ -1,0 +1,38 @@
+﻿@page "/catalog"
+@inject ICatalog Catalog
+
+<h3>Каталог магазина:</h3>
+
+    <table class='table'>
+       <thead>
+          <tr>
+			<th>Наименование<hr/></th>
+            <th>| Цена<hr /></th>
+            <th>| Цена со скидкой<hr/></th>
+            <th>| Срок годности<hr /></th>
+            <th>| Количество в наличие<hr /></th>
+          </tr>
+       </thead>
+       <tbody>
+            @foreach (var product in products)
+           {
+              <tr>
+                <td>>@product.Name<hr /></td>
+                <td>@product.Price<hr /></td>
+                <td>@product.DiscountPrice<hr /></td>
+                <td>@product.ExpiredAt.ToString("d")<hr /></td>
+                <td>@product.Stock<hr /></td>
+              </tr>
+           }
+       </tbody>
+    </table>
+
+
+@code {
+	private List<Product>? products;
+
+	protected override void OnInitialized()
+	{
+		products = Catalog.GetProducts();
+	}
+}

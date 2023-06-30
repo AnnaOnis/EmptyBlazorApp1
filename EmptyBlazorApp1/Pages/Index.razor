@@ -1,0 +1,25 @@
+﻿@page "/"
+
+<h1>Добро пожаловать в интернет-магазин PionoFlowers!</h1>
+<p>Время сервера: @now</p>
+
+@code{
+
+	DateTime now = DateTime.Now;
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		Task.Run(async () =>
+		{
+			while (true)
+			{
+				await Task.Delay(1000);
+				now = DateTime.Now;
+				await InvokeAsync(()=>StateHasChanged());				
+			}
+
+		});
+	}
+}
